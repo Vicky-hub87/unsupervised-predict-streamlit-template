@@ -37,6 +37,9 @@ from utils.data_loader import load_movie_titles
 from recommenders.collaborative_based import collab_model
 from recommenders.content_based import content_model
 
+#other imports
+from PIL import Image
+
 # Data Loading
 title_list = load_movie_titles('resources/data/movies.csv')
 
@@ -103,6 +106,39 @@ def main():
     if page_selection == "Solution Overview":
         st.title("Solution Overview")
         st.write("Describe your winning approach on this page")
+
+        #data
+        #Movie data has movie ID movie name and genre(s)
+        Movies = pd.read_csv('resources/data/movies.csv')
+        #Rating data has movie Id and ratings
+        Ratings = pd.read_csv('resources/data/ratings.csv')
+        #IMDB data has movie ID, cast , directors and movie budget 
+        imdb = pd.read_csv('resources/data/imdb_data.csv')
+
+        if st.checkbox('Show More information about movies'):
+            if st.checkbox('Actors'):
+                    image = Image.open(r'resources/reports/cast.jpg')
+                    st.markdown('''Top 10 rated movies and their Cast''')
+                    st.image(image, use_column_width=True)
+            elif st.checkbox('Movies'):
+                    image = Image.open(r'resources/reports/top10_movies_and_ratings.jpg')
+                    st.markdown('''Top 10 rated movies''')
+                    st.image(image, use_column_width=True)
+            elif st.checkbox('Genre'):
+                    image = Image.open(r'resources/reports/genre.jpg')
+                    st.markdown('''Top 10 rated movies and their Genres''')
+                    st.image(image, use_column_width=True)
+            elif st.checkbox('Directors'):
+                    image = Image.open(r'resources/reports/directors.jpg')
+                    st.markdown('''Top 10 rated movies and their Directors''')
+                    st.image(image, use_column_width=True)
+            elif st.checkbox('Budget'):
+                    image = Image.open(r'resources/reports/budget and rating.jpg')
+                    st.markdown('''Top 10 rated movies and their Budget''')
+                    st.image(image, use_column_width=True)
+            elif st.checkbox('Overall'):
+                pass
+
 
     # You may want to add more sections here for aspects such as an EDA,
     # or to provide your business pitch.
