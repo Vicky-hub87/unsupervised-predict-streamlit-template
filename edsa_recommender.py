@@ -48,7 +48,7 @@ def main():
 
     # DO NOT REMOVE the 'Recommender System' option below, however,
     # you are welcome to add more options to enrich your app.
-    page_options = ["Recommender System","Solution Overview"]
+    page_options = ["Recommender System","Solution Overview","EDA"]
 
     # -------------------------------------------------------------------
     # ----------- !! THIS CODE MUST NOT BE ALTERED !! -------------------
@@ -131,19 +131,8 @@ def main():
         st.header('**Content-based Filtering**')
         st.markdown('''This system uses item metadata, such as genre, director, description, actors, for movies, to make these recommendations. The general idea behind these recommender systems is that if a person likes a particular item, he or she will also like an item that is similar to it. And to recommend that, it will make use of the user's past item metadata.''')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if page_selection == "EDA":
+        st.title("Movies Graphs and Relationships")
 
         #data
         #Movie data has movie ID movie name and genre(s)
@@ -153,31 +142,34 @@ def main():
         #IMDB data has movie ID, cast , directors and movie budget 
         imdb = pd.read_csv('resources/data/imdb_data.csv')
 
-        if st.checkbox('Show More information about movies'):
-            if st.checkbox('Actors'):
-                    image = Image.open(r'resources/reports/cast.jpg')
-                    st.markdown('''Top 10 rated movies and their Cast''')
-                    st.image(image, use_column_width=True)
-            elif st.checkbox('Movies'):
-                    image = Image.open(r'resources/reports/top10_movies_and_ratings.jpg')
-                    st.markdown('''Top 10 rated movies''')
-                    st.image(image, use_column_width=True)
-            elif st.checkbox('Genre'):
-                    image = Image.open(r'resources/reports/genre.jpg')
-                    st.markdown('''Top 10 rated movies and their Genres''')
-                    st.image(image, use_column_width=True)
-            elif st.checkbox('Directors'):
-                    image = Image.open(r'resources/reports/directors.jpg')
-                    st.markdown('''Top 10 rated movies and their Directors''')
-                    st.image(image, use_column_width=True)
-            elif st.checkbox('Budget'):
-                    image = Image.open(r'resources/reports/budget and rating.jpg')
-                    st.markdown('''Top 10 rated movies and their Budget''')
-                    st.image(image, use_column_width=True)
-            elif st.checkbox('Overall'):
-                st.markdown("""
-                    <iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/224974a4-669e-4103-8052-66b7674d7c97/page/CndYB" frameborder="0" style="border:0" allowfullscreen></iframe>
-                    """, unsafe_allow_html=True)
+
+        if st.checkbox('Actors'):
+                image = Image.open(r'resources/reports/cast.jpg')
+                st.markdown('''Top 10 rated movies and their Cast''')
+                st.image(image, use_column_width=True)
+        elif st.checkbox('Movies'):
+                image = Image.open(r'resources/reports/top10_movies_and_ratings.jpg')
+                st.markdown('''Top 10 rated movies''')
+                st.image(image, use_column_width=True)
+        elif st.checkbox('Genre'):
+                image = Image.open(r'resources/reports/genre.jpg')
+                st.markdown('''Top 10 rated movies and their Genres''')
+                st.image(image, use_column_width=True)
+        elif st.checkbox('Directors'):
+                image = Image.open(r'resources/reports/directors.jpg')
+                st.markdown('''Top 10 rated movies and their Directors''')
+                st.image(image, use_column_width=True)
+        elif st.checkbox('Budget'):
+                image = Image.open(r'resources/reports/budget and rating.jpg')
+                st.markdown('''Top 10 rated movies and their Budget''')
+                st.image(image, use_column_width=True)
+        elif st.checkbox('Overall'):
+                image = Image.open(r'resources/reports/overall.jpg')
+                st.markdown('''Overall Movies Data''')
+                st.image(image, use_column_width=True)
+                #st.markdown("""
+                    #<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/224974a4-669e-4103-8052-66b7674d7c97/page/CndYB" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    #""", unsafe_allow_html=True)
                                
 
 
