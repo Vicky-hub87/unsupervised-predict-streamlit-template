@@ -133,7 +133,8 @@ def main():
 
     if page_selection == "EDA":
         st.title("Movies Graphs and Relationships")
-
+        st.markdown("Using the raw movie data , we plotted some graphs that show relationships between variables like the budget of a movie and it's rating , the rapid rise in budget of movies over the years, cast and directors of movies amonngst others")
+        st.markdown("**NB: Please view reports in full page to see them clearly**")
         #data
         #Movie data has movie ID movie name and genre(s)
         Movies = pd.read_csv('resources/data/movies.csv')
@@ -145,23 +146,36 @@ def main():
 
         if st.checkbox('Actors'):
                 image = Image.open(r'resources/reports/cast.jpg')
-                st.markdown('''Top 10 rated movies and their Cast''')
+                st.markdown('''For Actors data we look at ..''')
+                st.markdown("i. The cast for the top 10 rated movies and also how many of the 10 movies did the cast repeat if they did")
+                st.markdown("ii. We also look at the average number of cast members over the years and we observe the leading characters for the top 10 rated movies")
                 st.image(image, use_column_width=True)
         elif st.checkbox('Movies'):
                 image = Image.open(r'resources/reports/top10_movies_and_ratings.jpg')
-                st.markdown('''Top 10 rated movies''')
+                st.markdown('''For the movies data we look at ..''')
+                st.markdown("i. The top 10 rated movies titles and the sum of the ratings")
+                st.markdown("ii. we also look at the number of users that have rated movies and the change in ratings over the years")
+                st.markdown("iii. Lastly we look at how each genrer average in terms of rating")
                 st.image(image, use_column_width=True)
         elif st.checkbox('Genre'):
                 image = Image.open(r'resources/reports/genre.jpg')
-                st.markdown('''Top 10 rated movies and their Genres''')
+                st.markdown('''For the genrer data we look at ..''')
+                st.markdown("i. we look again at the top 10 rated movies but this time we alos check the genrers they belong to")
+                st.markdown("ii. we also look at the overall number of movies per genrer with drama leading by over 9000 movies")
                 st.image(image, use_column_width=True)
         elif st.checkbox('Directors'):
                 image = Image.open(r'resources/reports/directors.jpg')
-                st.markdown('''Top 10 rated movies and their Directors''')
+                st.markdown('''For the directors data we look at ..''')
+                st.markdown("i. we look at the top 10 rated movie titles and this time we also look at the directors who directed them")
+                st.markdown('ii. We also look at the change in number of directors over time')
+                st.markdown("iii. lastly we look at the top 10 rated directors and the movies they directed")
                 st.image(image, use_column_width=True)
         elif st.checkbox('Budget'):
                 image = Image.open(r'resources/reports/budget and rating.jpg')
-                st.markdown('''Top 10 rated movies and their Budget''')
+                st.markdown('''For the Budget data we look at ..''')
+                st.markdown("i. The top 10 movie titles and their budgets we also observe the sum ratings of the movies")
+                st.markdown("ii. We then look at the change in budgets over the years")
+                st.markdown("iii. lastly we look at the overall budget for different genrers, with comedy having over $10 Billion")
                 st.image(image, use_column_width=True)
         elif st.checkbox('Overall'):
                 image = Image.open(r'resources/reports/overall.jpg')
