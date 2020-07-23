@@ -106,24 +106,24 @@ def main():
 
     # ------------- SAFE FOR ALTERING/EXTENSION -------------------
     if page_selection == "Solution Overview":
-        st.title("Solution Overview")
+        
         #st.write("Describe your winning approach on this page")
 
-        st.title('Movie Recommendation System Engine')
+        st.title('Movie Recommender Engine')
         st.info('General Information') 
         st.image(r'resources/imgs/unnamed.jpg',use_column_width=True)
         st.header('**About Recommendation Systems **')
-        st.markdown('''Recommendation systems are becoming increasingly important in today’s extremely busy world. People are always short on time with the myriad tasks they need to accomplish in the limited 24 hours. Recommender systems are socially and economically critical for ensuring that individuals can make appropriate choices surrounding the content they engage with on a daily basis. Therefore, the recommendation systems are important as they help them make the right choices.
-                    The purpose of a recommendation system is to search for content that would be interesting to an individual. Moreover, it involves a number of factors to create personalised lists of useful and interesting content specific to each user.Another objective of the recommendation system is to achieve customer loyalty by providing relevant content and maximising the time spent by a user on your website or channel
-                    ''')
+        st.markdown('''Recommendation systems are becoming increasingly important in today’s extremely busy world. People are always short on time with the myriad tasks they need to accomplish in the limited 24 hours. Recommender systems are socially and economically critical for ensuring that individuals can make appropriate choices surrounding the content they engage with on a daily basis. Therefore, the recommendation systems are important as they help them make the right choices.''')
+        st.markdown('''The purpose of a recommendation system is to search for content that would be interesting to an individual. Moreover, it involves a number of factors to create personalised lists of useful and interesting content specific to each user.Another objective of the recommendation system is to achieve customer loyalty by providing relevant content and maximising the time spent by a user on your website or channel.''')
+                    
         st.header(' **Why Movie Recommendation Systems **')
         st.markdown(''' i. They help the user find movies of their interest.''')
         st.markdown('''  ii. Helps the item provider to deliver their items to the right user.''')
         st.markdown(''' iii.    Showcase personalised content to each user.''')
-        st.markdown(''' iv. Websites can improve user-engagement to the website''')
+        st.markdown(''' iv. Websites can improve user-engagement to the website.''')
         st.header(' **Movie Recommendation System Used**')
         st.image(r'resources/imgs/Collaborative_filtering_vbujt7.gif',use_column_width=True)
-        st.markdown('''Recommendations are driven by Machine Learning Algorithms. This Recommendation Engine uses Collaborative Filtering and Content-Based Filtering to predict unseen movie ratings gathered from thousands of users based on the historical preference.''')
+        st.markdown('''Movie recommendation Systems are driven by Machine Learning Algorithms. This Recommendation Engine uses Collaborative Filtering and Content-Based Filtering to predict unseen movie ratings gathered from thousands of users based on their historical preference.''')
         st.markdown('''When a movie website misses a recommendation system, it results in users browsing through a long list of movies, with no suggestions about what to watch. This, in turn, reduces the propensity of a user to engage with the website and use its services. This recommendation system will help users get recommendations of movies based on similar movies they once watched or based on what other users who have similar interest in movies as them have loved watching. ''')
         st.image(r'resources/imgs/unnamed2.jpg',use_column_width=True)
 
@@ -135,7 +135,7 @@ def main():
 
     if page_selection == "EDA":
         st.title("Movies Graphs and Relationships")
-        st.markdown("Using the raw movie data , we plotted some graphs that show relationships between variables like the budget of a movie and it's rating , the rapid rise in budget of movies over the years, cast and directors of movies amonngst others")
+        st.markdown("Using the raw movie data , we plotted some graphs that show relationships between variables like the budget of a movie and it's rating , the rapid rise in budget of movies over the years, cast and directors of movies amongst others")
         st.markdown("**NB: Please view reports in full page to see them clearly**")
         #data
         #Movie data has movie ID movie name and genre(s)
