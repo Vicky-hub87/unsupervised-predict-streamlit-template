@@ -36,113 +36,129 @@ from surprise import Reader, Dataset
 from surprise import SVD, NormalPredictor, BaselineOnly, KNNBasic, NMF
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.feature_extraction.text import CountVectorizer
+from scipy.sparse import csr_matrix
+from fuzzywuzzy import fuzz
 
 # Importing data
-movies_df = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
-ratings_df = pd.read_csv('resources/data/ratings.csv')
-ratings_df.drop(['timestamp'], axis=1,inplace=True)
+df_movies = pd.read_csv('resources/data/movies.csv',sep = ',',delimiter=',')
+df_ratings = pd.read_csv('resources/data/ratings.csv')
+df_ratings.drop(['timestamp'], axis=1,inplace=True)
 
-# We make use of an SVD model trained on a subset of the MovieLens 10k dataset.
-model=pickle.load(open('resources/models/SVD.pkl', 'rb'))
+# We make use of an K-Nearest Neighbors algorithm model trained on a subset of the MovieLens 10k dataset.
 
-def prediction_item(item_id):
-    """Map a given favourite movie to users within the
-       MovieLens dataset with the same preference.
+#Preprocessing
 
-    Parameters
-    ----------
-    item_id : int
-        A MovieLens Movie ID.
+df_movies_cnt = pd.DataFrame(df_ratings[:10000].groupby('movieId').size(), columns=['count'])
 
-    Returns
-    -------
-    list
-        User IDs of users with similar high ratings for the given movie.
+#now we need to take only movies that have been rated at least 5 times to get some idea of the reactions of users towards it
+popularity_thres = 5
+popular_movies = list(set(df_movies_cnt.query('count >= @popularity_thres').index))
+df_ratings_drop_movies = df_ratings[df_ratings.movieId.isin(popular_movies)]
 
-    """
-    # Data preprosessing
-    reader = Reader(rating_scale=(0, 5))
-    load_df = Dataset.load_from_df(ratings_df,reader)
-    a_train = load_df.build_full_trainset()
+df_users_cnt = pd.DataFrame(df_ratings_drop_movies.groupby('userId').size(), columns=['count'])
 
-    predictions = []
-    for ui in a_train.all_users():
-        predictions.append(model.predict(iid=item_id,uid=ui, verbose = False))
-    return predictions
+# filter data to come to an approximation of user likings.
+ratings_thres = 2
+active_users = list(set(df_users_cnt.query('count >= @ratings_thres').index))
+df_ratings_drop_users = df_ratings_drop_movies[df_ratings_drop_movies.userId.isin(active_users)]
 
-def pred_movies(movie_list):
-    """Maps the given favourite movies selected within the app to corresponding
-    users within the MovieLens dataset.
 
-    Parameters
-    ----------
-    movie_list : list
-        Three favourite movies selected by the app user.
+# pivot and create movie-user matrix
+movie_user_mat = df_ratings_drop_users.pivot(index='movieId', columns='userId', values='rating').fillna(0)
+#map movie titles to images
 
-    Returns
-    -------
-    list
-        User-ID's of users with similar high ratings for each movie.
+movie_to_idx = {
+    movie: i for i, movie in 
+    enumerate(list(df_movies.set_index('movieId').loc[movie_user_mat.index].title))
+}
+# transform matrix to scipy sparse matrix
+movie_user_mat_sparse = csr_matrix(movie_user_mat.values)
+
+
+
+def fuzzy_matching(mapper, movie_list):
 
     """
-    # Store the id of users
-    id_store=[]
-    # For each movie selected by a user of the app,
-    # predict a corresponding user within the dataset with the highest rating
-    for i in movie_list:
-        predictions = prediction_item(item_id = i)
-        predictions.sort(key=lambda x: x.est, reverse=True)
-        # Take the top 10 user id's from each movie with highest rankings
-        for pred in predictions[:10]:
-            id_store.append(pred.uid)
-    # Return a list of user id's
-    return id_store
+    return the closest match via fuzzy ratio. 
+    
+    Parameters
+    ----------    
+    mapper: dict, map movie title name to index of the movie in data
+
+    fav_movie: str, name of user input movie
+    
+
+    Return
+    ------
+    index of the closest match
+    """
+    import random
+ 
+    match_tuple = []
+    # get match
+    for title, idx in mapper.items():
+        ratio = fuzz.ratio(title.lower(), movie_list[random.randint(0, 2)].lower())
+        if ratio >= 60:
+            match_tuple.append((title, idx, ratio))
+    # sort
+    match_tuple = sorted(match_tuple, key=lambda x: x[2])[::-1]
+    ''''if not match_tuple:
+        print('Oops! No match is found')
+        return
+    if verbose:
+        print('Found possible matches in our database: {0}\n'.format([x[0] for x in match_tuple]))'''
+    return match_tuple[0][1]
+
+
+
+
 
 # !! DO NOT CHANGE THIS FUNCTION SIGNATURE !!
 # You are, however, encouraged to change its content.  
 def collab_model(movie_list,top_n=10):
-    """Performs Collaborative filtering based upon a list of movies supplied
-       by the app user.
+        """
+        return top n similar movie recommendations based on user's input movie
 
-    Parameters
-    ----------
-    movie_list : list (str)
-        Favorite movies chosen by the app user.
-    top_n : type
-        Number of top recommendations to return to the user.
 
-    Returns
-    -------
-    list (str)
-        Titles of the top-n movie recommendations to the user.
+        Parameters
+        ----------
+        model_knn: sklearn model, knn model
 
-    """
+        data: movie-user matrix
 
-    indices = pd.Series(movies_df['title'])
-    movie_ids = pred_movies(movie_list)
-    df_init_users = ratings_df[ratings_df['userId']==movie_ids[0]]
-    for i in movie_ids :
-        df_init_users=df_init_users.append(ratings_df[ratings_df['userId']==i])
-    # Getting the cosine similarity matrix
-    cosine_sim = cosine_similarity(np.array(df_init_users), np.array(df_init_users))
-    idx_1 = indices[indices == movie_list[0]].index[0]
-    idx_2 = indices[indices == movie_list[1]].index[0]
-    idx_3 = indices[indices == movie_list[2]].index[0]
-    # Creating a Series with the similarity scores in descending order
-    rank_1 = cosine_sim[idx_1]
-    rank_2 = cosine_sim[idx_2]
-    rank_3 = cosine_sim[idx_3]
-    # Calculating the scores
-    score_series_1 = pd.Series(rank_1).sort_values(ascending = False)
-    score_series_2 = pd.Series(rank_2).sort_values(ascending = False)
-    score_series_3 = pd.Series(rank_3).sort_values(ascending = False)
-     # Appending the names of movies
-    listings = score_series_1.append(score_series_1).append(score_series_3).sort_values(ascending = False)
-    recommended_movies = []
-    # Choose top 50
-    top_50_indexes = list(listings.iloc[1:50].index)
-    # Removing chosen movies
-    top_indexes = np.setdiff1d(top_50_indexes,[idx_1,idx_2,idx_3])
-    for i in top_indexes[:top_n]:
-        recommended_movies.append(list(movies_df['title'])[i])
-    return recommended_movies
+        mapper: dict, map movie title name to index of the movie in data
+
+        movie_list: str, name of user input movie
+
+        top_n: int, top n recommendations
+
+        Return
+        ------
+        list of top n similar movie recommendations
+        """
+        #fit
+        model_knn=pickle.load(open('resources/models/model_knn.pkl', 'rb'))
+        data=movie_user_mat_sparse
+        model_knn.fit(data)
+        # get input movie index
+        #print('You have input movie:', movie_list)
+        mapper=movie_to_idx
+        idx = fuzzy_matching(mapper, movie_list)
+        
+        #print('Recommendation system start to make inference')
+        #print('......\n')
+        distances, indices = model_knn.kneighbors(data[idx], n_neighbors=top_n+1)
+
+        # get reverse mapper
+        reverse_mapper = {v: k for k, v in mapper.items()}
+
+        raw_recommends = \
+        sorted(list(zip(indices.squeeze().tolist(), distances.squeeze().tolist())), key=lambda x: x[1])[:0:-1]
+
+        final = []
+        for i, (idx, dist) in enumerate(raw_recommends):
+            final.append((' {1}'.format(i+1, reverse_mapper[idx])))    
+        return final
+
+
+        
