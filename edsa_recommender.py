@@ -147,46 +147,38 @@ def main():
 
 
         if st.checkbox('Actors'):
-                image = Image.open(r'resources/reports/cast.jpg')
                 st.markdown('''For Actors data we look at ..''')
                 st.markdown("i. The cast for the top 10 rated movies and also how many of the 10 movies did the cast repeat if they did")
                 st.markdown("ii. We also look at the average number of cast members over the years and we observe the leading characters for the top 10 rated movies")
-                st.image(image, use_column_width=True)
+                st.markdown('''<iframe width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiZjcyNGY1NWYtM2JmNS00N2QxLWJlMWMtNDZlMzZkYWI5MzZmIiwidCI6ImRmZTE1OTcyLTUzNmUtNDY0OS05ZTZhLWFhMWIxZGZiOGRlZSJ9" frameborder="0" allowFullScreen="true"></iframe>''', unsafe_allow_html=True)
         elif st.checkbox('Movies'):
-                image = Image.open(r'resources/reports/top10_movies_and_ratings.jpg')
                 st.markdown('''For the movies data we look at ..''')
                 st.markdown("i. The top 10 rated movies titles and the sum of the ratings")
                 st.markdown("ii. we also look at the number of users that have rated movies and the change in ratings over the years")
                 st.markdown("iii. Lastly we look at how each genrer average in terms of rating")
-                st.image(image, use_column_width=True)
+                st.markdown('''<iframe width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiZjlhMTMzOGItNjdkZS00ZmJlLWJhNzQtMTE0ODQyMzljNDI2IiwidCI6ImRmZTE1OTcyLTUzNmUtNDY0OS05ZTZhLWFhMWIxZGZiOGRlZSJ9" frameborder="0" allowFullScreen="true"></iframe>''', unsafe_allow_html=True)
         elif st.checkbox('Genre'):
-                image = Image.open(r'resources/reports/genre.jpg')
                 st.markdown('''For the genrer data we look at ..''')
                 st.markdown("i. we look again at the top 10 rated movies but this time we alos check the genrers they belong to")
                 st.markdown("ii. we also look at the overall number of movies per genrer with drama leading by over 9000 movies")
-                st.image(image, use_column_width=True)
+                st.markdown('''<iframe width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiNzM5NWFiYjYtMTRkYS00NGJmLTkxNGUtZjA2MzdmYjUwY2FlIiwidCI6ImRmZTE1OTcyLTUzNmUtNDY0OS05ZTZhLWFhMWIxZGZiOGRlZSJ9" frameborder="0" allowFullScreen="true"></iframe>''', unsafe_allow_html=True)
         elif st.checkbox('Directors'):
                 image = Image.open(r'resources/reports/directors.jpg')
-                st.markdown('''For the directors data we look at ..''')
                 st.markdown("i. we look at the top 10 rated movie titles and this time we also look at the directors who directed them")
                 st.markdown('ii. We also look at the change in number of directors over time')
                 st.markdown("iii. lastly we look at the top 10 rated directors and the movies they directed")
-                st.image(image, use_column_width=True)
+                st.markdown('''<iframe width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiMzBmYmFlMTAtZmY5ZC00OTRmLWJhZTItZmFlYzhhZDZmZGQ5IiwidCI6ImRmZTE1OTcyLTUzNmUtNDY0OS05ZTZhLWFhMWIxZGZiOGRlZSJ9" frameborder="0" allowFullScreen="true"></iframe>''',unsafe_allow_html=True)
         elif st.checkbox('Budget'):
-                image = Image.open(r'resources/reports/budget and rating.jpg')
                 st.markdown('''For the Budget data we look at ..''')
                 st.markdown("i. The top 10 movie titles and their budgets we also observe the sum ratings of the movies")
                 st.markdown("ii. We then look at the change in budgets over the years")
                 st.markdown("iii. lastly we look at the overall budget for different genrers, with comedy having over $10 Billion")
-                st.image(image, use_column_width=True)
+                st.markdown('''<iframe width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiMjY0OTUzYWMtNzY4Mi00YmM3LWE2NDMtZGRmNmI4MGIxZjUwIiwidCI6ImRmZTE1OTcyLTUzNmUtNDY0OS05ZTZhLWFhMWIxZGZiOGRlZSJ9" frameborder="0" allowFullScreen="true"></iframe>''',unsafe_allow_html=True)
         elif st.checkbox('Overall'):
-                image = Image.open(r'resources/reports/overall.jpg')
-                st.markdown('''Overall Movies Data''')
-                st.image(image, use_column_width=True)
-                #st.markdown("""
-                    #<iframe width="600" height="450" src="https://datastudio.google.com/embed/reporting/224974a4-669e-4103-8052-66b7674d7c97/page/CndYB" frameborder="0" style="border:0" allowfullscreen></iframe>
-                    #""", unsafe_allow_html=True)
-                               
+                #st.markdown('''Overall Movies Data''')
+                st.markdown("""<iframe width="600" height="373.5" src="https://app.powerbi.com/view?r=eyJrIjoiMDVlZDMxZGEtY2YwYy00Mzk1LWEyNGItYTAwMjJmOTk3NDRmIiwidCI6ImRmZTE1OTcyLTUzNmUtNDY0OS05ZTZhLWFhMWIxZGZiOGRlZSJ9" frameborder="0" allowFullScreen="true"></iframe>""",unsafe_allow_html=True)
+
+               
 
 
     # You may want to add more sections here for aspects such as an EDA,
