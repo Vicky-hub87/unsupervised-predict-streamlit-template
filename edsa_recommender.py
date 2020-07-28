@@ -108,22 +108,14 @@ def main():
     if page_selection == "Getting Started":
         st.title('Movie Recommender Engine')
         st.info('Working With The App')
-<<<<<<< HEAD
         st.image(r'resources/imgs/intro.jpg',use_column_width=True)
-=======
-        
->>>>>>> a4e9cf929be22793157920b165dfd385c659d929
         st.header('**Using The App**')
         st.markdown(''' i. Navigate and select a Movie Recommender System Algorithm of your choice. ''')
         st.markdown(''' ii. Collaborative Filtering algorithm will recommend a movie to a user based on what other users with similar movie preferences and interests have watched and recommend that to them.''')
         st.markdown(''' iii. Content_Based Filtering algorithm will recommend a movie to a user based on movies that are similar to what they have watched before and then recommend those movies to them.''')
         st.markdown(''' iv. After selecting an algorithm, select 3 options of your favorite movies that you would like to get recommendations from.''')
         st.markdown(''' v. Click 'Recommend' and get a list of movie recommendations for you.''')
-<<<<<<< HEAD
         st.image(r'resources/imgs/intro.gif',use_column_width=True)
-=======
-        #st.image(r'resources/imgs/unnamed.jpg',use_column_width=True)
->>>>>>> a4e9cf929be22793157920b165dfd385c659d929
 
 
     if page_selection == "Solution Overview":
