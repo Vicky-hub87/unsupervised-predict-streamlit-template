@@ -115,6 +115,8 @@ def main():
         st.markdown(''' iii. Content_Based Filtering algorithm will recommend a movie to a user based on movies that are similar to what they have watched before and then recommend those movies to them.''')
         st.markdown(''' iv. After selecting an algorithm, select 3 options of your favorite movies that you would like to get recommendations from.''')
         st.markdown(''' v. Click 'Recommend' and get a list of movie recommendations for you.''')
+        
+        st.header('**Illustrations**')
         st.image(r'resources/imgs/intro.gif',use_column_width=True)
 
 
