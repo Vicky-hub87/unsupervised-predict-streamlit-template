@@ -147,8 +147,8 @@ def main():
 
     if page_selection == "EDA":
         st.title("Movies Graphs and Relationships")
-        st.markdown("Using the raw movie data , we plotted some graphs that show relationships between variables like the budget of a movie and it's rating , the rapid rise in budget of movies over the years, cast and directors of movies amongst others")
-        st.markdown("**NB: Please view reports in full page to see them clearly**")
+        st.markdown("Using the raw movie data , we plotted some graphs/dashboards that show relationships between variables like the budget of a movie and it's rating , the rapid rise in budget of movies over the years, cast and directors of movies amongst others")
+        st.markdown("**NB: Please view reports in full page to see them clearly and interact with them nicely**")
         #data
         #Movie data has movie ID movie name and genre(s)
         Movies = pd.read_csv('resources/data/movies.csv')
