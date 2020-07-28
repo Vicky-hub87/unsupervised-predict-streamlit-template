@@ -85,7 +85,7 @@ def fuzzy_matching(mapper, movie_list):
     ----------    
     mapper: dict, map movie title name to index of the movie in data
 
-    fav_movie: str, name of user input movie
+    movie_list: list, name of user input movies
     
 
     Return
@@ -122,13 +122,8 @@ def collab_model(movie_list,top_n=10):
 
         Parameters
         ----------
-        model_knn: sklearn model, knn model
 
-        data: movie-user matrix
-
-        mapper: dict, map movie title name to index of the movie in data
-
-        movie_list: str, name of user input movie
+        movie_list: list, name of user input movie
 
         top_n: int, top n recommendations
 
